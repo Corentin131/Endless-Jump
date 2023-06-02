@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public float jumpPower = 20;
     public Animation playerAnimation;
     public GameObject image;
+    public Camera mainCamera;
 
     [HideInInspector]
     public int direction = 1;
@@ -27,6 +28,7 @@ public class Player : MonoBehaviour
     
     public string sceneName;
     float runningSpeed;
+    bool isJumping;
     
     RaycastHit2D hit;
 
@@ -42,12 +44,22 @@ public class Player : MonoBehaviour
     void Update()
     {
         //Instantiate(movement,transform.position,transform.rotation);
+        Vector3 diff = UnityEngine.Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+        diff.Normalize();
+        
+        float rot_z = Mathf.Atan2(3.8f, 3.2f) * Mathf.Rad2Deg;
+        //image.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
+        //image.transform.LookAt(new Vector2(3.8f,3.2f));
         if (runningSpeed != 0)
         {
-            //if (Input.GetKey(KeyCode.LeftControl))
-            //{
+            //rotate image effect
+            Vector2 velocity = transform.InverseTransformDirection(rb.velocity);
+            image.transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z+velocity.y*1.3f*direction);
+            
+            print(transform.position.y);
+              
             transform.Translate(new Vector2(runningSpeed*Time.deltaTime*direction,0));
-            //}
+        
 
             if (Input.GetKey(KeyCode.LeftAlt) | Input.GetKey(KeyCode.RightShift))
             {
@@ -59,23 +71,13 @@ public class Player : MonoBehaviour
         }else if (Input.GetMouseButtonDown(0))
         {
             runningSpeed = speed;
+            transform.eulerAngles =  new Vector3(0,0,0);
         }
         
     }
 
     void FixedUpdate()
     {
-        if(!isTouchFloor)
-        {
-            //Rotate effect
-            if (image.transform.eulerAngles.z < -18)
-            {
-                image.transform.Rotate(0,0, -2.8f*direction, Space.Self);
-            }
-        }else
-        {
-            //image.transform.eulerAngles = new Vector3(0,0,currentRotationZ);
-        }
         isTouchFloor = false;
         if (needToJump)
         {
@@ -83,19 +85,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag == "Platform")
         {
-            isTouchFloor = true;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.tag == "Platform")
-        {
-            //image.transform.eulerAngles = new Vector3(0,0,0);
+            isTouchFloor = true;            
         }
     }
     
@@ -126,10 +121,9 @@ public class Player : MonoBehaviour
     {
         float x = transform.InverseTransformDirection(rb.velocity).x;
         rb.velocity = transform.TransformDirection(new Vector2(x,jumpPower*Time.deltaTime));
-        //playerAnimation.Play("Jump");
-        image.transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z+40*direction);
         isTouchFloor = false;
         needToJump = false;
+        isJumping = true;
     }
 
     void StartBoost()
@@ -181,7 +175,7 @@ public class Player : MonoBehaviour
 
                 float y = transform.InverseTransformDirection(rb.velocity).y;
                 rb.velocity = transform.TransformDirection(new Vector2(0,y));
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetMouseButtonDown(0) & runningSpeed != 0)
                 {
                     if (isTouchFloor)
                     {

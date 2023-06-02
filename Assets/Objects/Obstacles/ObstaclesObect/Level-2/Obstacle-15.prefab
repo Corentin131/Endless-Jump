@@ -574,7 +574,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5912492111653311950, guid: e6cd9f7d298847d4f8b2b2ded4966920, type: 3}
       propertyPath: bannedObstacle.Array.size
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5912492111653311950, guid: e6cd9f7d298847d4f8b2b2ded4966920, type: 3}
       propertyPath: bannedObstacle.Array.data[0]
@@ -582,7 +582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5912492111653311950, guid: e6cd9f7d298847d4f8b2b2ded4966920, type: 3}
       propertyPath: bannedObstacle.Array.data[1]
-      value: Obstacle-8
+      value: Obstacle-11
       objectReference: {fileID: 0}
     - target: {fileID: 5912492111653311950, guid: e6cd9f7d298847d4f8b2b2ded4966920, type: 3}
       propertyPath: bannedObstacle.Array.data[2]

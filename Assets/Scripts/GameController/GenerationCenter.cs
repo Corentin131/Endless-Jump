@@ -7,7 +7,7 @@ using UnityEngine;
 public static class GenerationCenter
 {
     public static int nbOfObstacles = 0;
-    public static int limitOfObstacles = 20;
+    public static int limitOfObstacles = 5;
     public static int currentLevelIndex;
     public static Levels currentLevel;
     public static ObstacleData[] currentsObstacles;

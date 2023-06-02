@@ -61,11 +61,7 @@ public class ObstacleSpawner : MonoBehaviour
                     ObstacleData obstacleToAdd = null;
 
                     int decideRareObstacle = Random.Range(0, 4);
-                    if (decideRareObstacle == 0 & GenerationCenter.currentsRareObstacle.Length != 0)
-                    {
-                        obstacleToAdd = GenerationCenter.currentsRareObstacle[Random.Range(0,GenerationCenter.currentsRareObstacle.Length)];
-                        
-                    }else if (isGateToOtherLevel)
+                    if (isGateToOtherLevel)
                     {
                         
                         obstacleToAdd = GenerationCenter.allObstacles[Random.Range(0, GenerationCenter.allObstacles.Length)];
