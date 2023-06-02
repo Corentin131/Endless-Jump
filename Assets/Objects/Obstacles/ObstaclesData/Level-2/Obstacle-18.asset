@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 984c910afce347a4c9c02c39155530ed, type: 3}
+  m_Name: Obstacle-18
+  m_EditorClassIdentifier: 
+  name: Obstacle-18
+  obstacle: {fileID: 8216307979483348457, guid: b31f7d4ea02e38e4b922886485670d1e, type: 3}
+  banedObstacle: []
