@@ -161,6 +161,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiddlePlatform (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: rotationEffect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
 --- !u!4 &4114924932625442514 stripped
@@ -363,6 +371,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiddlePlatform
       objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: rotationEffect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
 --- !u!4 &4114924933614173777 stripped
@@ -429,6 +445,14 @@ PrefabInstance:
       propertyPath: direction
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: rotationEffect
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
 --- !u!4 &4114924933693042188 stripped
@@ -494,6 +518,14 @@ PrefabInstance:
     - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
       propertyPath: direction
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: transition
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: rotationEffect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
@@ -641,6 +673,14 @@ PrefabInstance:
     - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
       propertyPath: direction
       value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7891123526792469991, guid: 7814331c9da7937439d7909e2bc94867, type: 3}
+      propertyPath: rotationEffect
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7814331c9da7937439d7909e2bc94867, type: 3}

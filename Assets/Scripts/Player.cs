@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,7 @@ public class Player : MonoBehaviour
 
     public float speed = 20;
     public float jumpPower = 20;
-    public Animation playerAnimation;
+    public Animator animator;
     public GameObject image;
     public Camera mainCamera;
 
@@ -22,45 +23,58 @@ public class Player : MonoBehaviour
     public bool needToJump = false;
     [HideInInspector]
     public float currentRotationZ = 0;
-    public Rigidbody2D rb;
-    public GameObject bottom;
     public GameObject CameraTarget;
+
+    public GameObject[] effectsOnTouchFloor;
     
     public string sceneName;
     float runningSpeed;
-    bool isJumping;
+    public bool isTransiting;
+    public bool rotationEffect;
+    RaycastHit2D CameraHit;
     
-    RaycastHit2D hit;
+    RaycastHit2D finalHit;
+    Rigidbody2D rb;
+
+    Transform side;
 
     // Start is called before the first frame update
     void Start()
     {
+        Application.targetFrameRate = 200;
         runningSpeed = 0;
         rb = transform.GetComponent<Rigidbody2D>();
         StartCoroutine(PlaceCamera());
-        StartCoroutine(GetTouch());
+        StartCoroutine(GetInput());
+        StartCoroutine(Transition());
     }
     
     void Update()
     {
-        //Instantiate(movement,transform.position,transform.rotation);
-        Vector3 diff = UnityEngine.Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-        diff.Normalize();
-        
-        float rot_z = Mathf.Atan2(3.8f, 3.2f) * Mathf.Rad2Deg;
-        //image.transform.rotation = Quaternion.Euler(0f, 0f, rot_z - 90);
-        //image.transform.LookAt(new Vector2(3.8f,3.2f));
+        if (direction == 1)
+        {
+            image.transform.localScale = new Vector3(Math.Abs(image.transform.localScale.x),image.transform.localScale.y,image.transform.localScale.z);
+        }
+        else if (direction == -1)
+        {
+            image.transform.localScale = new Vector3(-Math.Abs(image.transform.localScale.x),image.transform.localScale.y,image.transform.localScale.z);
+        }
+
         if (runningSpeed != 0)
         {
-            //rotate image effect
-            Vector2 velocity = transform.InverseTransformDirection(rb.velocity);
-            image.transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z+velocity.y*1.3f*direction);
-            
-            print(transform.position.y);
-              
             transform.Translate(new Vector2(runningSpeed*Time.deltaTime*direction,0));
-        
 
+            //rotate image effect
+
+            if (!isTouchFloor & rotationEffect & !isTransiting)
+            {
+                Vector2 velocity = transform.InverseTransformDirection(rb.velocity);
+                image.transform.eulerAngles = new Vector3(0,transform.eulerAngles.y,transform.eulerAngles.z+velocity.y*1.4f*direction);
+            }else
+            {
+                image.transform.localEulerAngles = new Vector3(0,image.transform.eulerAngles.y,0);
+            }
+           
             if (Input.GetKey(KeyCode.LeftAlt) | Input.GetKey(KeyCode.RightShift))
             {
                 StartBoost();
@@ -68,9 +82,11 @@ public class Player : MonoBehaviour
             {
                 StopBoost();
             }
+
         }else if (Input.GetMouseButtonDown(0))
         {
             runningSpeed = speed;
+            StartCoroutine(AddScore());
             transform.eulerAngles =  new Vector3(0,0,0);
         }
         
@@ -90,9 +106,13 @@ public class Player : MonoBehaviour
     {
         if (collision.tag == "Platform")
         {
-            isTouchFloor = true;            
+            isTouchFloor = true;    
+            TouchFloor();        
         }
     }
+
+   
+
     
     public void ChangeGravity(float direction)
     {
@@ -123,7 +143,6 @@ public class Player : MonoBehaviour
         rb.velocity = transform.TransformDirection(new Vector2(x,jumpPower*Time.deltaTime));
         isTouchFloor = false;
         needToJump = false;
-        isJumping = true;
     }
 
     void StartBoost()
@@ -138,18 +157,31 @@ public class Player : MonoBehaviour
         runningSpeed = speed;
     }
 
+    public void ReceiveMoney()
+    {
+        if (!animator.GetCurrentAnimatorStateInfo(0).IsName("ReceiveCoin"))
+        {
+            animator.SetTrigger("ReceiveCoin");
+        }
+        
+    }
+    
+    public void TouchFloor()
+    {
+        //GlobalFunctions.SpawnEffect(effectsOnTouchFloor,CameraHit.transform,new Vector2(CameraHit.point.x,CameraHit.point.y));
+    }
     IEnumerator PlaceCamera()
     {
         while (true)
         {
             yield return null;
 
-            Debug.DrawRay(bottom.transform.position, transform.TransformDirection(new Vector2(0,-5.0f)),Color.red);
-            hit = Physics2D.Raycast(bottom.transform.position,transform.TransformDirection(new Vector2(0,-1)), 5.0f);
-            if (hit) 
+            Debug.DrawRay(transform.position, transform.TransformDirection(new Vector2(0,-5.0f)),Color.red);
+            CameraHit = Physics2D.Raycast(transform.position,transform.TransformDirection(new Vector2(0,-1)), 5.0f,3);
+            if (CameraHit) 
             {
                 CameraTarget.transform.rotation = transform.rotation;
-                Vector2 position = transform.InverseTransformPoint(new Vector2(hit.point.x,hit.point.y));
+                Vector2 position = transform.InverseTransformPoint(new Vector2(CameraHit.point.x,CameraHit.point.y));
                 int correctionX = 3;
                 int correctionY = 11;
 
@@ -167,7 +199,82 @@ public class Player : MonoBehaviour
         }
     }
 
-    IEnumerator GetTouch()
+    IEnumerator Transition()
+    {
+        float toRotate = 0;
+        float initialDistance = 0; 
+        float initialZRotation = 0;
+        
+        while (true)
+        {
+            yield return null;
+            
+            Debug.DrawRay(transform.position, transform.TransformDirection(new Vector2(4f*direction,4f)),Color.red);
+            RaycastHit2D TransitionHitTop = Physics2D.Raycast(transform.position,transform.TransformDirection(new Vector2(1*direction,1)), 4f,3);
+
+            Debug.DrawRay(transform.position, transform.TransformDirection(new Vector2(4f*direction,0)),Color.red);
+            RaycastHit2D TransitionHitRight = Physics2D.Raycast(transform.position,transform.TransformDirection(new Vector2(1*direction,0)), 4,3);
+             
+            
+            if (TransitionHitTop & !isTouchFloor)
+            {
+                finalHit = TransitionHitTop;
+
+            }else if (TransitionHitRight & !isTouchFloor)
+            {
+                finalHit = TransitionHitRight;
+
+            }else
+            {
+                toRotate = 0;
+                initialDistance = 0; 
+                initialZRotation = 0;
+                finalHit = TransitionHitRight;
+            }
+
+            if (finalHit)
+            {
+                if(finalHit.transform.tag == "Platform")
+                {
+                    GravityChanger gravityChanger = finalHit.transform.gameObject.GetComponent<GravityChanger>();
+                    isTransiting = true;
+                    if(gravityChanger.transition)
+                    {
+                        float distance = Vector3.Distance(transform.position, new Vector2(finalHit.point.x,finalHit.point.y))-0.5f;
+                        float targetRotation = finalHit.transform.eulerAngles.z;
+
+                        if (toRotate == 0)
+                        {
+                            initialZRotation = image.transform.eulerAngles.z;
+
+                            toRotate = -Mathf.DeltaAngle(initialZRotation, targetRotation);
+
+                            initialDistance = distance;
+                        }
+                        
+                        float percentDistance = (distance/initialDistance)*100;
+                        float percentRotation = percentDistance/100*toRotate;
+            
+                        image.transform.eulerAngles = new Vector3(0,0,currentRotationZ+percentRotation-toRotate);
+                    
+                    }else
+                    {
+                        //image.transform.localEulerAngles = new Vector3(0,image.transform.eulerAngles.y,0);
+                        isTransiting = false;
+                    }
+                }else
+                {
+                    isTransiting = false;
+                }
+
+                
+            }else
+            {
+                isTransiting = false;
+            }
+        }
+    }
+    IEnumerator GetInput()
     {
         while(true)
         {
@@ -185,6 +292,18 @@ public class Player : MonoBehaviour
                         print("to late");
                     }
                 }
+                
+            
+        }
+    }
+
+    IEnumerator AddScore()
+    {
+        while(true)
+        {
+            yield return new WaitForSeconds(0.01f);
+
+            ScoreCenter.score += 0.01f;
                 
             
         }

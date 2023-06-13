@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 7359223411700709345}
   - component: {fileID: 7359223411700709344}
   - component: {fileID: 7359223411700709359}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MiddlePlatform
   m_TagString: Platform
   m_Icon: {fileID: 0}
@@ -252,6 +252,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: -1
   isTrigger: 0
+  transition: 1
+  rotationEffect: 1
 --- !u!1 &7359223411815157759
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +671,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: -1
   isTrigger: 0
+  transition: 1
+  rotationEffect: 1
 --- !u!1001 &434970601765261614
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1281,6 +1285,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7359223412788878355}
     m_Modifications:
+    - target: {fileID: -5072555077488304307, guid: 3891079fdbb13f34d9e2511a4f1742eb, type: 3}
+      propertyPath: direction
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2650747057055634080, guid: 3891079fdbb13f34d9e2511a4f1742eb, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1604,14 +1612,6 @@ PrefabInstance:
     - target: {fileID: 5502762603077158268, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -204.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6117455131684909762, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
-      propertyPath: m_Size.y
-      value: 16.654676
-      objectReference: {fileID: 0}
-    - target: {fileID: 6117455131684909762, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
-      propertyPath: m_Offset.y
-      value: -7.827338
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}

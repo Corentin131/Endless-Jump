@@ -6,6 +6,9 @@ public class GravityChanger : MonoBehaviour
 {
     public int direction = 1;
     public bool isTrigger = false;
+    public bool transition = true;
+    public bool rotationEffect = true;
+    private Vector3 validDirection = Vector3.up;  // What you consider to be upwards
 
     void OnCollisionEnter2D(Collision2D other)
     {
@@ -26,17 +29,20 @@ public class GravityChanger : MonoBehaviour
     void Change(GameObject other)
     {
         Player playerMovement = other.GetComponent<Player>();
-            
+        playerMovement.direction = direction;
+
         //Change rotation of the object
         Vector3 currentRotation = other.transform.rotation.eulerAngles;
         currentRotation.z = transform.rotation.eulerAngles.z;
         other.transform.rotation = Quaternion.Euler(currentRotation);
 
-        Vector3 currentRotationImage = playerMovement.image.transform.rotation.eulerAngles;
-        currentRotationImage.z = transform.rotation.eulerAngles.z;
-        playerMovement.image.transform.rotation = Quaternion.Euler(currentRotationImage);
     
         playerMovement.ChangeGravity(transform.rotation.eulerAngles.z);
-        playerMovement.direction = direction;
+
+        playerMovement.currentRotationZ = transform.rotation.eulerAngles.z;
+        playerMovement.rotationEffect = rotationEffect;
+
+        
+
     }
 }
