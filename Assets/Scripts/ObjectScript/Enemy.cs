@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            Player playerScript = other.gameObject.GetComponent<Player>();
+            PlayerEventManager playerScript = other.gameObject.GetComponent<PlayerEventManager>();
             playerScript.Die();
         }
     }

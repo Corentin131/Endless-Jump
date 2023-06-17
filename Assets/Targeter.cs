@@ -13,7 +13,7 @@ public class Targeter : MonoBehaviour
 
     Vector3 initialScale;
     Vector3 velocity = Vector3.zero;
-    Player playerScript;
+    PlayerMovement playerScript;
     bool isFollowing;
 
     void Start()

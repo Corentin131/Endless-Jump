@@ -11,7 +11,7 @@ public class WoodWall : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            Player playerScript = other.gameObject.GetComponent<Player>();
+            PlayerMovement playerScript = other.gameObject.GetComponent<PlayerMovement>();
 
             if (playerScript.isBoosting == true)
             {

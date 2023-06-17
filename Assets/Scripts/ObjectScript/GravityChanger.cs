@@ -28,7 +28,7 @@ public class GravityChanger : MonoBehaviour
 
     void Change(GameObject other)
     {
-        Player playerMovement = other.GetComponent<Player>();
+        PlayerMovement playerMovement = other.GetComponent<PlayerMovement>();
         playerMovement.direction = direction;
 
         //Change rotation of the object
@@ -38,8 +38,6 @@ public class GravityChanger : MonoBehaviour
 
     
         playerMovement.ChangeGravity(transform.rotation.eulerAngles.z);
-
-        playerMovement.currentRotationZ = transform.rotation.eulerAngles.z;
         playerMovement.rotationEffect = rotationEffect;
 
         

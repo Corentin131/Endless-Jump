@@ -12,10 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d087403d4480f3343874b15c18f19e9c, type: 3}
   m_Name: Gifts
   m_EditorClassIdentifier: 
-  logos:
-  - {fileID: 2438345693131231610, guid: 2e3079f50be9ca54d95309d896024bd8, type: 3}
-  - {fileID: 2438345693131231610, guid: 2e3079f50be9ca54d95309d896024bd8, type: 3}
-  gifts:
-  - 500Dollars
-  - 0
-  score: 000000000500000014000000
+  gift:
+  - logo: {fileID: 2438345693131231610, guid: d7f1cbc9c6185854892a71233219818d, type: 3}
+    notificationLogo: {fileID: 0}
+    giftType: 1
+    targetScore: 5
+  - logo: {fileID: 2438345693131231610, guid: 02832bfd706fd1f429f0932c08b1a7ce, type: 3}
+    notificationLogo: {fileID: 21300000, guid: 3494dc956dfd7174abc07060940a2848, type: 3}
+    giftType: 0
+    targetScore: 10
+  - logo: {fileID: 2438345693131231610, guid: e26c9dc317606ad4ca033334948d460e, type: 3}
+    notificationLogo: {fileID: 0}
+    giftType: 2
+    targetScore: 15

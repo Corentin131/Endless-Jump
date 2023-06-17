@@ -8,7 +8,7 @@ public class AutoJump : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
-            Player playerMovement = other.gameObject.GetComponent<Player>();
+            PlayerMovement playerMovement = other.gameObject.GetComponent<PlayerMovement>();
             
             playerMovement.needToJump = true;
         }

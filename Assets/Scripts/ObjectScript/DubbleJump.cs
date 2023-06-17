@@ -8,7 +8,7 @@ public class DubbleJump : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            Player playerScript = other.gameObject.GetComponent<Player>();
+            PlayerMovement playerScript = other.gameObject.GetComponent<PlayerMovement>();
             playerScript.isTouchFloor = true;
             print(playerScript.isTouchFloor);
         }

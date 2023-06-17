@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+/*
 public class Player : MonoBehaviour
 {
 
@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     {
         GenerationCenter.Reset();
         ChangeGravity(0);
-        ScoreCenter.Reset();
+        GlobalData.Reset();
         SceneManager.LoadScene(sceneName);
         print("die");
     }
@@ -255,7 +255,7 @@ public class Player : MonoBehaviour
                         float percentDistance = (distance/initialDistance)*100;
                         float percentRotation = percentDistance/100*toRotate;
             
-                        image.transform.eulerAngles = new Vector3(0,0,currentRotationZ+percentRotation-toRotate);
+                        image.transform.eulerAngles = new Vector3(0,0,transform.eulerAngles.z+percentRotation-toRotate);
                     
                     }else
                     {
@@ -303,9 +303,10 @@ public class Player : MonoBehaviour
         {
             yield return new WaitForSeconds(0.01f);
 
-            ScoreCenter.score += 0.01f;
+            GlobalData.score += 0.01f;
                 
             
         }
     }
 }
+*/

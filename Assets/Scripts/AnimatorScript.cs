@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class AnimatorScript
 {
+    public bool isPlaying = false;
     public IEnumerator ScaleAction(Transform transform,Vector3 vectorAugmentation,float duration)
     {
-   
+        isPlaying = true;
+
         float x = transform.localScale.x + vectorAugmentation.x;
         float y = transform.localScale.y + vectorAugmentation.y;
         float z = transform.localScale.z + vectorAugmentation.z;
@@ -16,6 +18,9 @@ public class AnimatorScript
         LeanTween.scale(transform.gameObject,new Vector3(x,y,z),duration);
         yield return new WaitForSeconds(duration);
         LeanTween.scale(transform.gameObject,scale,duration);
+        yield return new WaitForSeconds(duration);
+
+        isPlaying = false;
         
     }
     /*
@@ -28,4 +33,13 @@ public class AnimatorScript
         
     }
     */
+
+    public void ScaleApparition(Transform transform)
+    {
+        Vector3 initialScale = transform.localScale;
+
+        transform.localScale = new Vector3(0,0,0);
+
+        LeanTween.scale(transform.gameObject,initialScale,0.8f).setEaseOutBounce();
+    }
 }

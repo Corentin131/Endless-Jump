@@ -12,7 +12,7 @@ public class Coin : MonoBehaviour
     public GameObject[] effectsWithPlayer;
     public GameObject[] effectsWithNotPlayer;
 
-    Player playerScript;
+    PlayerEventManager playerScript;
     bool isFollowing;
 
     void Start()
@@ -20,7 +20,7 @@ public class Coin : MonoBehaviour
         if (toPlayer)
         {
             target = GameObject.FindWithTag("Player").transform;
-            playerScript = target.gameObject.GetComponent<Player>();
+            playerScript = target.gameObject.GetComponent<PlayerEventManager>();
         }
 
     }
@@ -37,7 +37,7 @@ public class Coin : MonoBehaviour
                     playerScript.ReceiveMoney();
                 }
                 
-                Bank.AddCoins(value);
+                Game.app.AddCoins(value);
 
                 GlobalFunctions.SpawnEffect(effectsWithPlayer,target,Vector3.zero,parent:target);
                 GlobalFunctions.SpawnEffect(effectsWithNotPlayer,target,Vector3.zero);

@@ -5104,8 +5104,10 @@ GameObject:
   - component: {fileID: 7241728452185686549}
   - component: {fileID: 7241728452185686550}
   - component: {fileID: 7241728452185686551}
-  - component: {fileID: 7241728452185686547}
   - component: {fileID: 7241728452185686546}
+  - component: {fileID: 7217220711124931937}
+  - component: {fileID: 5598195944338526654}
+  - component: {fileID: 6285617359983733185}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -5232,33 +5234,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &7241728452185686547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7241728452185686552}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e430968215425c14ea5a7fae5535f6b0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 20
-  jumpPower: 1100
-  playerAnimation: {fileID: 0}
-  image: {fileID: 1538475641152432568}
-  mainCamera: {fileID: 0}
-  direction: 1
-  isTouchFloor: 1
-  isBoosting: 1
-  needToJump: 0
-  currentRotationZ: 0
-  CameraTarget: {fileID: 0}
-  effectsOnTouchFloor: []
-  sceneName: SkyTrip
-  isTransiting: 0
-  rotationEffect: 0
 --- !u!61 &7241728452185686546
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5285,6 +5260,57 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.4175227, y: 0.28483677}
   m_EdgeRadius: 0
+--- !u!114 &7217220711124931937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241728452185686552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0528e39dd74468149a70962c8db0854d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 20
+  jumpPower: 1100
+  animator: {fileID: 5317375807951415150}
+  image: {fileID: 1538475641152432568}
+  direction: 1
+  isTouchFloor: 1
+  isBoosting: 1
+  needToJump: 0
+  currentRunningSpeed: 0
+  isTransiting: 0
+  rotationEffect: 0
+  rb: {fileID: 0}
+--- !u!114 &5598195944338526654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241728452185686552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14d4faf1b166cf645999456244290fe3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostPlayerFollow: {fileID: 0}
+--- !u!114 &6285617359983733185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241728452185686552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df273ba5339a5f8448477c131bc7945c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ghostFollow: {fileID: 0}
+  sceneName: TestObstacle
 --- !u!1 &7538372833278008328
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,7 +7,7 @@ public class AddScore : MonoBehaviour
 public int score;
    void OnTriggerEnter2D(Collider2D other)
    {
-        ScoreCenter.score += score;
+        Game.app.score += score;
         Destroy(gameObject);
    }
 }

@@ -16,7 +16,8 @@ public class Portal : MonoBehaviour
 
     void TeleportTo(GameObject player)
     {
-        Player playerScript = player.gameObject.GetComponent<Player>();
+        PlayerMovement playerScript = player.gameObject.GetComponent<PlayerMovement>();
+        
         int index = Random.Range(0, portalDestinations.Length);
         GameObject portal = portalDestinations[index];
         int direction = directions[index];

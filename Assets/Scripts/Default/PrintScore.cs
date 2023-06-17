@@ -13,42 +13,44 @@ public class PrintScore : MonoBehaviour
     public Transform logoPosition;
     public Animator fillAnimator;
     public Slider mySlider;
-    public Gifts gifts;
-    public GiftMaker giftMaker;
+    public GiftsData giftsData;
+    public GiftMaker giftMaker = new GiftMaker();
     public ParticleSystem particlesChangeChallenge;
 
     float currentScore;
     int currentIndex = 0;
-    int scoreInt;
-    float maxScore;
-    float minScore;
+    float currentMaxScore;
+    float currentMinScore;
 
+    int scoreInt;
+
+    GiftsData.Gift currentGiftStruct;
     AnimatorScript animatorScript = new AnimatorScript();
     GameObject currentLogo = null;
 
     void Start()
     {
-        NextChallenge(); 
+        NextChallenge();
     }
+
     void Update()
     {
-        scoreInt = Convert.ToInt32(ScoreCenter.score);
+        scoreInt = Convert.ToInt32(Game.app.score);
 
-        score.text = (scoreInt).ToString();
-
-        currentScore = ScoreCenter.score-minScore;
+        currentScore = Game.app.score-currentMinScore;
 
         mySlider.value = currentScore;
+        score.text = (scoreInt).ToString();
 
-
-        if (currentScore >= (maxScore-minScore)-3)
+        if (currentScore >= (currentMaxScore-currentMinScore)-3)
         {
             fillAnimator.SetBool("Flash",true);
         }else
         {
             fillAnimator.SetBool("Flash",false);
         }
-        if(scoreInt == gifts.score[currentIndex])
+        
+        if(scoreInt == currentGiftStruct.targetScore)
         {
             NextChallenge();
         }
@@ -56,62 +58,103 @@ public class PrintScore : MonoBehaviour
 
     void NextChallenge()
     {
-        if (gifts.score.Length-1 > currentIndex)
+        if (giftsData.gift.Length-1 >= currentIndex)
         {
             if (currentIndex > 0)
             {
-                //execute gift
-                particlesChangeChallenge.Play();
-                if(gifts.gifts[currentIndex-1] == "500Dollars")
-                {
-                    giftMaker.EarnDollars(500);
-                    
-                }
-        
+                //verify which gift will be executed
+                SetGift();
             }
-            if (currentIndex == 0)
-            {
-                currentLogo = Instantiate(gifts.logos[currentIndex],logoPosition.position,logoPosition.rotation,transform);
-
-            }else if (gifts.logos[currentIndex] != null)
-            {
-                StartCoroutine(ChangeLogo(currentLogo));
             
-                //currentLogo = Instantiate(gifts.logos[currentIndex],logoPosition.position,logoPosition.rotation,transform);
-            }
+            
+            currentGiftStruct = giftsData.gift[currentIndex];
+            
+
+            ChangeLogo();
+            ChangeText();
             currentIndex += 1;
-            minScore = gifts.score[currentIndex-1];
-            maxScore = gifts.score[currentIndex];
+        }
+
+    }
+
+    void SetGift()
+    {
+        particlesChangeChallenge.Play();
+        print(currentGiftStruct.giftType);
+
+        switch (currentGiftStruct.giftType)
+        {
+            case GiftMaker.GiftType.Dollars500:
+                giftMaker.EarnDollars(500,currentGiftStruct.notificationLogo);
+                break;
             
-            Vector3 scale = new Vector3(0.8f,0.8f,0.8f);
-            float time = 0.2f;
+            case GiftMaker.GiftType.X2:
+                giftMaker.ModifyMultiplier(2);
+                break;
 
-            minScoreText.text = minScore.ToString();
-
-            maxScoreText.text = maxScore.ToString();
-            StartCoroutine(animatorScript.ScaleAction(maxScoreText.gameObject.transform,scale,time));
-            mySlider.maxValue = maxScore-ScoreCenter.score;
+            case GiftMaker.GiftType.X3:
+                giftMaker.ModifyMultiplier(3);
+                break;
         }
     }
 
-    IEnumerator ChangeLogo(GameObject logo)
+
+    void ChangeLogo()
+    {
+        GameObject logo = currentGiftStruct.logo;
+
+        Debug.Log(currentGiftStruct.targetScore);
+
+        if (currentIndex != 0)
+        {
+            StartCoroutine(ChangeLogoAnimation(currentLogo));
+        }else
+        {
+            currentLogo = Instantiate(logo,logoPosition.position,logoPosition.rotation,transform);
+        }
+        
+       
+
+    }
+
+
+    void ChangeText()
+    {
+        if (currentIndex == 0)//Quand la fonction est appelé pour le première fois
+        {
+            currentMinScore = 0;
+        }else
+        {
+            currentMinScore = currentMaxScore;
+        }
+
+        currentMaxScore =currentGiftStruct.targetScore;
+
+        Vector3 scale = new Vector3(0.8f,0.8f,0.8f);
+        float time = 0.2f;
+
+        minScoreText.text = currentMinScore.ToString();
+        maxScoreText.text = currentMaxScore.ToString();
+
+        StartCoroutine(animatorScript.ScaleAction(maxScoreText.gameObject.transform,scale,time));
+        mySlider.maxValue = currentMaxScore-Game.app.score;
+    }
+    
+
+    IEnumerator ChangeLogoAnimation(GameObject logo)
     {
         // Get out Logo
-        LeanTween.scale(logo,new Vector3(0.45f,0.45f,0.45f),1f).setEaseInOutElastic();;
+        LeanTween.scale(logo,new Vector3(0.45f,0.45f,0.45f),1f).setEaseInOutElastic();
         yield return new WaitForSeconds(1f);
         LeanTween.scale(logo,new Vector3(0,0,0),0.2f);
         yield return new WaitForSeconds(0.1f);
+
         Destroy(currentLogo);
-
-        // change logo
-        currentLogo = Instantiate(gifts.logos[currentIndex-1],logoPosition.position,logoPosition.rotation,transform);
         
-        Vector3 initialScale = currentLogo.transform.localScale;
-
-        currentLogo.transform.localScale = new Vector3(0,0,0);
-
-        LeanTween.scale(currentLogo,initialScale,0.8f).setEaseOutBounce();
-
+        currentLogo = Instantiate(currentGiftStruct.logo,logoPosition.position,logoPosition.rotation,transform);
+        animatorScript.ScaleApparition(currentLogo.transform);
     }
-    
+
+
+
 }

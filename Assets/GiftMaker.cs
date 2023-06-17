@@ -3,14 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class GiftMaker : MonoBehaviour
+public class GiftMaker
 {
-    public GameObject coinCanvas;
-    public Transform CoinText;
-    public void EarnDollars(int value)
+    public enum GiftType 
     {
-        Bank.AddCoins(value);
+        Dollars500,
+        X2,
+        X3
+    }
+    public void EarnDollars(int value,Sprite logo)
+    {
+        Game.app.AddCoins(value);
+        Game.app.notifier.Notify("You win "+value.ToString(),logo);
     }
 
-  
+    public void ModifyMultiplier(int value)
+    {
+        Game.app.multiplier = value;
+    }
 }
