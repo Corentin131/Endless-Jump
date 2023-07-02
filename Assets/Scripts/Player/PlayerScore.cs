@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerScore : MonoBehaviour
 {
-    // Start is called before the first frame update
+    PlayerMovement playerMovement;
+
     void Start()
     {
         StartCoroutine(AddScore());
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
     }
 
     IEnumerator AddScore()
@@ -15,10 +17,10 @@ public class PlayerScore : MonoBehaviour
         while(true)
         {
             yield return new WaitForSeconds(0.01f);
-
-            Game.app.score += 0.01f;
-                
-            
+            if (playerMovement.currentRunningSpeed > 0)
+            {
+                Game.instance.score += 0.01f;
+            }
         }
     }
 }

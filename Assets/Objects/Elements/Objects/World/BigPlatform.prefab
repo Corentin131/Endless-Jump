@@ -127,4 +127,5 @@ MonoBehaviour:
   direction: 1
   isTrigger: 0
   transition: 1
+  teleportation: 0
   rotationEffect: 1

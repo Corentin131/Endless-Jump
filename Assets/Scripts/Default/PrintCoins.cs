@@ -15,7 +15,7 @@ public class PrintCoins : MonoBehaviour
     void Start()
     {
         StartCoroutine(CoinAdder());
-        currentValue = Game.app.coins;
+        currentValue = Game.instance.coins;
     }
 
     void Update()
@@ -31,14 +31,14 @@ public class PrintCoins : MonoBehaviour
         while(true)
         {
             yield return null;
-            if (Game.app.coins > currentValue+200)
+            if (Game.instance.coins > currentValue+200)
             {
-                currentValue = Game.app.coins;
+                currentValue = Game.instance.coins;
                 bigAddParticle.Play();
 
-            }else if(currentValue < Game.app.coins)
+            }else if(currentValue < Game.instance.coins)
             {
-                while (currentValue < Game.app.coins)
+                while (currentValue < Game.instance.coins)
                 {
                     LeanTween.scale(gameObject,new Vector3(1.1f,1.1f,1.1f),0.1f);
                     yield return new WaitForSeconds(0.02f);
@@ -78,11 +78,11 @@ public class PrintCoins : MonoBehaviour
 
     void MultiplierManager()
     {
-        if (currentMultiplier != Game.app.multiplier)//On change
+        if (currentMultiplier != Game.instance.multiplier)//On change
         {
             
             StartCoroutine(animatorScript.ScaleAction(multiplierText.transform,new Vector3(0.5f,0.5f,0.5f),0.2f));
-            currentMultiplier = Game.app.multiplier;
+            currentMultiplier = Game.instance.multiplier;
         }
 
         if (currentMultiplier > 1)

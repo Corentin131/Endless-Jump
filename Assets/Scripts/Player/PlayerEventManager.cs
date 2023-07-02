@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerEventManager : MonoBehaviour
 {
     public Transform ghostFollow;
@@ -28,9 +28,10 @@ public class PlayerEventManager : MonoBehaviour
 
     public void Die()
     {
+        
         GenerationCenter.Reset();
         playerMovement.ChangeGravity(0);
-        Game.app.Reset();
+        Game.instance.Reset();
         SceneManager.LoadScene(sceneName);
         print("die");
     }
@@ -39,7 +40,7 @@ public class PlayerEventManager : MonoBehaviour
     {
         if (animatorScript.isPlaying == false)
         {
-            StartCoroutine(animatorScript.ScaleAction(playerMovement.image.transform,new Vector3(0.3f,0.3f,0.3f),0.065f));
+            StartCoroutine(animatorScript.ScaleAction(playerMovement.image.transform,new Vector3(1.2f,1.4f,1.3f),0.1f,add:false,initialScale:new Vector3(1,1,1)));
         }
     }
 }

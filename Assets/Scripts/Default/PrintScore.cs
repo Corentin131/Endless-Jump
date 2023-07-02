@@ -35,9 +35,9 @@ public class PrintScore : MonoBehaviour
 
     void Update()
     {
-        scoreInt = Convert.ToInt32(Game.app.score);
+        scoreInt = Convert.ToInt32(Game.instance.score);
 
-        currentScore = Game.app.score-currentMinScore;
+        currentScore = Game.instance.score-currentMinScore;
 
         mySlider.value = currentScore;
         score.text = (scoreInt).ToString();
@@ -80,8 +80,7 @@ public class PrintScore : MonoBehaviour
     void SetGift()
     {
         particlesChangeChallenge.Play();
-        print(currentGiftStruct.giftType);
-
+        
         switch (currentGiftStruct.giftType)
         {
             case GiftMaker.GiftType.Dollars500:
@@ -102,8 +101,6 @@ public class PrintScore : MonoBehaviour
     void ChangeLogo()
     {
         GameObject logo = currentGiftStruct.logo;
-
-        Debug.Log(currentGiftStruct.targetScore);
 
         if (currentIndex != 0)
         {
@@ -137,7 +134,7 @@ public class PrintScore : MonoBehaviour
         maxScoreText.text = currentMaxScore.ToString();
 
         StartCoroutine(animatorScript.ScaleAction(maxScoreText.gameObject.transform,scale,time));
-        mySlider.maxValue = currentMaxScore-Game.app.score;
+        mySlider.maxValue = currentMaxScore-Game.instance.score;
     }
     
 

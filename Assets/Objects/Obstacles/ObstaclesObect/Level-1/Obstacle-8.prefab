@@ -253,6 +253,7 @@ MonoBehaviour:
   direction: -1
   isTrigger: 0
   transition: 1
+  teleportation: 0
   rotationEffect: 1
 --- !u!1 &7359223411815157759
 GameObject:
@@ -672,6 +673,7 @@ MonoBehaviour:
   direction: -1
   isTrigger: 0
   transition: 1
+  teleportation: 0
   rotationEffect: 1
 --- !u!1001 &434970601765261614
 PrefabInstance:
@@ -1569,6 +1571,14 @@ PrefabInstance:
       propertyPath: direction
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 2691546421658298800, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
+      propertyPath: transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691546421658298800, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
+      propertyPath: teleportation
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5502762603077158268, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -1630,6 +1640,14 @@ PrefabInstance:
     - target: {fileID: 2413983562569728907, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
       propertyPath: m_Name
       value: BigPlatform (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691546421658298800, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
+      propertyPath: transition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2691546421658298800, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
+      propertyPath: teleportation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5502762603077158268, guid: e36ad2eac59930e4e90e3df85680d973, type: 3}
       propertyPath: m_RootOrder
